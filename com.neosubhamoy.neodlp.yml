@@ -67,15 +67,15 @@ modules:
           - aarch64
       # deno stable binary archive sources
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.4/deno-x86_64-unknown-linux-gnu.zip
-        sha256: aef56590931e785af10bdab2077a2a01344b620c78b7086b88ebca73962ef25d
+        url: https://github.com/denoland/deno/releases/download/v2.7.7/deno-x86_64-unknown-linux-gnu.zip
+        sha256: 0cd918870657ccc3d96ac682290e894dda374e2a742424aae9118b258a6cf7a3
         dest: src-tauri/resources/downloads
         dest-filename: deno-x86_64-unknown-linux-gnu.zip
         only-arches:
           - x86_64
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.4/deno-aarch64-unknown-linux-gnu.zip
-        sha256: d2b99d1c072cab6ec8ececda1a1bd5889a9ea5217fafd9a9a9f5b0e56ef5e9cd
+        url: https://github.com/denoland/deno/releases/download/v2.7.7/deno-aarch64-unknown-linux-gnu.zip
+        sha256: e654ef4b41d8f1369dfe7d69374c8f226660153d077e0ac25353d454e03ef798
         dest: src-tauri/resources/downloads
         dest-filename: deno-aarch64-unknown-linux-gnu.zip
         only-arches:
