@@ -1,10 +1,15 @@
 {
-    "name": "python3-yt-dlp",
+    "name": "python3-modules",
     "buildsystem": "simple",
     "build-commands": [
-        "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"yt-dlp[default,curl-cffi]\" --no-build-isolation"
+        "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pip\" \"yt-dlp[default,curl-cffi]\" --no-build-isolation"
     ],
     "sources": [
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/de/f0/c81e05b613866b76d2d1066490adf1a3dbc4ee9d9c839961c3fc8a6997af/pip-26.0.1-py3-none-any.whl",
+            "sha256": "bdb1b08f4274833d62c1aa29e20907365a2ceb950410df15fc9521bad440122b"
+        },
         {
             "type": "file",
             "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz",

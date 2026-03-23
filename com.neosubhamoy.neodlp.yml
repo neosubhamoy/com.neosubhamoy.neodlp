@@ -24,8 +24,8 @@ build-options:
 modules:
   - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
    
-  # yt-dlp stable python module -> python3 flatpak-pip-generator.py --runtime='org.gnome.Sdk//49' yt-dlp[default,curl-cffi]
-  - python3-yt-dlp.json
+  # python modules -> python3 flatpak-pip-generator.py --runtime='org.gnome.Sdk//49' pip yt-dlp[default,curl-cffi] -o python3-modules.json
+  - python3-modules.json
 
   - name: aria2
     buildsystem: autotools
