@@ -23,9 +23,6 @@ build-options:
 
 modules:
   - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
-   
-  # yt-dlp stable python module -> python3 flatpak-pip-generator.py --runtime='org.gnome.Sdk//49' yt-dlp[default,curl-cffi]
-  - python3-yt-dlp.json
 
   - name: aria2
     buildsystem: autotools
@@ -45,23 +42,53 @@ modules:
     sources:
       - type: git
         url: https://github.com/neosubhamoy/neodlp.git
-        tag: v0.4.3
-        commit: 2211f252c7af5ac6e0a3df50123b4d0a22d2d041
+        tag: v0.4.4
+        commit: 7e587cc6df5132cc34a29a2781db22530239f558
       # Node.js package sources -> flatpak-node-generator npm -o flatpak/node-sources.json package-lock.json
       - node-sources.json
       # Rust package sources -> python3 flatpak-cargo-generator.py src-tauri/Cargo.lock -o flatpak/cargo-sources.json
       - cargo-sources.json
+      # yt-dlp stable binary sources
+      - type: file
+        url: https://github.com/yt-dlp/yt-dlp/releases/download/2026.03.17/yt-dlp_linux
+        sha256: c2b0189f581fe4a2ddd41954f1bcb7d327db04b07ed0dea97e4f1b3e09b5dd8e
+        dest: src-tauri/binaries
+        dest-filename: yt-dlp-x86_64-unknown-linux-gnu
+        only-arches:
+          - x86_64
+      - type: file
+        url: https://github.com/yt-dlp/yt-dlp/releases/download/2026.03.17/yt-dlp_linux_aarch64
+        sha256: 6bfa19736181da9e2e066f9c767da2f24fdcc5e148fa5034d1feb09132f89ad5
+        dest: src-tauri/binaries
+        dest-filename: yt-dlp-aarch64-unknown-linux-gnu
+        only-arches:
+          - aarch64
+      # neodlp-pot stable binary sources
+      - type: file
+        url: https://github.com/jim60105/bgutil-ytdlp-pot-provider-rs/releases/download/v0.8.1/bgutil-pot-linux-x86_64
+        sha256: e7c264a574fa2705b6e5dc62283a8a4e80130f27b9d7e9df44e6b09aa6151a87
+        dest: src-tauri/binaries
+        dest-filename: neodlp-pot-x86_64-unknown-linux-gnu
+        only-arches:
+          - x86_64
+      - type: file
+        url: https://github.com/jim60105/bgutil-ytdlp-pot-provider-rs/releases/download/v0.8.1/bgutil-pot-linux-aarch64
+        sha256: 4f4a1f681dba45e695e1c14d314517da180a1fd374afd09d634fd80ef6d0284b
+        dest: src-tauri/binaries
+        dest-filename: neodlp-pot-aarch64-unknown-linux-gnu
+        only-arches:
+          - aarch64
       # deno stable binary archive sources
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.4/deno-x86_64-unknown-linux-gnu.zip
-        sha256: aef56590931e785af10bdab2077a2a01344b620c78b7086b88ebca73962ef25d
+        url: https://github.com/denoland/deno/releases/download/v2.7.8/deno-x86_64-unknown-linux-gnu.zip
+        sha256: 4aa161f11f2560b6e8dc543c0d96a87d7d208989eb82380bd5c2e263e36bed12
         dest: src-tauri/resources/downloads
         dest-filename: deno-x86_64-unknown-linux-gnu.zip
         only-arches:
           - x86_64
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.4/deno-aarch64-unknown-linux-gnu.zip
-        sha256: d2b99d1c072cab6ec8ececda1a1bd5889a9ea5217fafd9a9a9f5b0e56ef5e9cd
+        url: https://github.com/denoland/deno/releases/download/v2.7.8/deno-aarch64-unknown-linux-gnu.zip
+        sha256: 83eae2c5a32eca2b16740cac76c23967e7e3fe1b356cf95625b7b6f4a0f366d8
         dest: src-tauri/resources/downloads
         dest-filename: deno-aarch64-unknown-linux-gnu.zip
         only-arches:
@@ -98,12 +125,17 @@ modules:
       - install -Dm644 -t /app/share/metainfo/ com.neosubhamoy.neodlp.metainfo.xml
       - install -Dm644 -t /app/share/applications/ com.neosubhamoy.neodlp.desktop
       - install -Dm755 -t /app/bin/ src-tauri/target/release/neodlp
+      - install -Dm755 -t /app/bin/ src-tauri/target/release/neodlp-pot
       - install -Dm755 -t /app/bin/ src-tauri/target/release/deno
       # Install icons
       - install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/com.neosubhamoy.neodlp.png
       - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/com.neosubhamoy.neodlp.png
       - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/com.neosubhamoy.neodlp.png
       - install -Dm644 src-tauri/icons/icon.png /app/share/icons/hicolor/256x256@2/apps/com.neosubhamoy.neodlp.png
+      # Copy resources
+      - mkdir -p /app/lib/neodlp
+      - cp -rf src-tauri/resources/plugins/yt-dlp-plugins /app/lib/neodlp
+      - cp src-tauri/target/release/yt-dlp /app/lib/neodlp/yt-dlp
 
     post-install:
       - install -Dm644 LICENSE /app/share/licenses/com.neosubhamoy.neodlp/LICENSE
