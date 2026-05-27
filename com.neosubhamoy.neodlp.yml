@@ -1,7 +1,7 @@
 id: com.neosubhamoy.neodlp
 
 runtime: org.gnome.Platform
-runtime-version: "49"
+runtime-version: "50"
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
@@ -42,8 +42,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/neosubhamoy/neodlp.git
-        tag: v0.4.4
-        commit: 7e587cc6df5132cc34a29a2781db22530239f558
+        tag: v0.4.5
+        commit: e66da1a155737abd74975a8568916cd92e688fe6
       # Node.js package sources -> flatpak-node-generator npm -o flatpak/node-sources.json package-lock.json
       - node-sources.json
       # Rust package sources -> python3 flatpak-cargo-generator.py src-tauri/Cargo.lock -o flatpak/cargo-sources.json
@@ -80,15 +80,15 @@ modules:
           - aarch64
       # deno stable binary archive sources
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.8/deno-x86_64-unknown-linux-gnu.zip
-        sha256: 4aa161f11f2560b6e8dc543c0d96a87d7d208989eb82380bd5c2e263e36bed12
+        url: https://github.com/denoland/deno/releases/download/v2.8.0/deno-x86_64-unknown-linux-gnu.zip
+        sha256: be2c8b53c8ca1d66be76feb9b1a524419da708b00d4ca074cf5c633c81c1627b
         dest: src-tauri/resources/downloads
         dest-filename: deno-x86_64-unknown-linux-gnu.zip
         only-arches:
           - x86_64
       - type: archive
-        url: https://github.com/denoland/deno/releases/download/v2.7.8/deno-aarch64-unknown-linux-gnu.zip
-        sha256: 83eae2c5a32eca2b16740cac76c23967e7e3fe1b356cf95625b7b6f4a0f366d8
+        url: https://github.com/denoland/deno/releases/download/v2.8.0/deno-aarch64-unknown-linux-gnu.zip
+        sha256: 933a6a7d2985957271cd2085a5a5a1832398aa221a354daab5635196cf2cbbae
         dest: src-tauri/resources/downloads
         dest-filename: deno-aarch64-unknown-linux-gnu.zip
         only-arches:
